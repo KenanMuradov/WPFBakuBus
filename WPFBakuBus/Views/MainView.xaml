@@ -11,7 +11,7 @@
 
 
 
-    <Grid>
+    <Grid x:Name="grid">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -21,7 +21,7 @@
         <Grid.Resources>
             <ControlTemplate x:Key="myPushpin" TargetType="m:Pushpin">
                 <m:Pushpin Background="Red" Content="{TemplateBinding Content}">
-                   
+
                 </m:Pushpin>
             </ControlTemplate>
         </Grid.Resources>
@@ -56,9 +56,6 @@
                                     <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontSize="14" Text="Current: "/>
                                     <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" FontSize="14" Text="{Binding Attributes.CURRENT_STOP}"/>
                                 </Grid>
-                                
-                                    
-                                    
                             </m:Pushpin.ToolTip>
                         </m:Pushpin>
                     </DataTemplate>
@@ -66,8 +63,12 @@
             </m:MapItemsControl>
         </m:Map>
 
-        <mycontrols:MyComboBox Command="{Binding BusSelectCommand}" CommandParameter="{Binding ElementName=mapList}" CommandTarget="{Binding ElementName=mapList}" SelectedIndex="{Binding CurrentIndex,UpdateSourceTrigger=PropertyChanged}"  
-                               VerticalAlignment="Top" Margin=" 5 20 5 10" ItemsSource="{Binding ComboBoxBuses}"/>
+        <mycontrols:MyComboBox 
+            Command="{Binding BusSelectCommand}" 
+            CommandParameter="{Binding ElementName=mapList}"
+            SelectedIndex="{Binding CurrentIndex,UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding ComboBoxBuses}"
+            VerticalAlignment="Top" Margin=" 5 20 5 10"/>
 
     </Grid>
 </Window>

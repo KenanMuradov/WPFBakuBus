@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Maps.MapControl.WPF;
 using WPFBakuBus.Models;
 using System.Text.Json;
 using System.IO;
 using System.Windows;
-using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Net.Http;
 using System.Windows.Input;
 using WPFBakuBus.Commands;
-using System.Security.Policy;
-using System.Runtime.Serialization.Json;
+using System.Windows.Controls;
 
 namespace WPFBakuBus.ViewModels;
 
@@ -74,7 +69,7 @@ public class MainViewModel : INotifyPropertyChanged
         ComboBoxBuses.Add("View All");
 
         UpdateBakuBusStatus();
-        
+
 
         DispatcherTimer timer = new();
         timer.Interval = new TimeSpan(10000);
@@ -90,6 +85,10 @@ public class MainViewModel : INotifyPropertyChanged
         {
             var busName = ComboBoxBuses[CurrentIndex];
 
+            if (busName == "View All")
+                foreach (var bus in map.Items.OfType<Bus>())
+                    bus.Attributes.VISIBILITY = Visibility.Visible;
+
             foreach (var bus in map.Items.OfType<Bus>())
             {
 
@@ -100,12 +99,10 @@ public class MainViewModel : INotifyPropertyChanged
             }
 
         }
+
     }
 
-    private void Timer_Tick(object? sender, EventArgs e)
-    {
-        UpdateBakuBusStatus();
-    }
+    private void Timer_Tick(object? sender, EventArgs e) => UpdateBakuBusStatus();
 
     private async void UpdateBakuBusStatus()
     {

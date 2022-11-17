@@ -18,8 +18,6 @@ public class Attributes : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
     private void OnPropertyChanged(string prorertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prorertyName));
-
-
     public string BUS_ID { get; set; }
     public string PLATE { get; set; }
     public string DRIVER_NAME { get; set; }
@@ -35,7 +33,6 @@ public class Attributes : INotifyPropertyChanged
     public Location LOCATION { get; set; }
 
     private Visibility visibility;
-
     public Visibility VISIBILITY
     {
         get { return visibility; }
@@ -43,10 +40,8 @@ public class Attributes : INotifyPropertyChanged
         { 
             visibility = value;
             OnPropertyChanged(nameof(VISIBILITY));
-
         }
-    } 
-
+    }
 }
 
 public class Bus
