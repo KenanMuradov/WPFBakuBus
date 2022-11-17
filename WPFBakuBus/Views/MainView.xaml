@@ -21,16 +21,7 @@
         <Grid.Resources>
             <ControlTemplate x:Key="myPushpin" TargetType="m:Pushpin">
                 <m:Pushpin Background="Red" Content="{TemplateBinding Content}">
-                    <m:Pushpin.ToolTip>
-                        <StackPanel>
-                            <Image Width="50" Height="50">
-                                <Image.OpacityMask>
-                                    <ImageBrush ImageSource="/Bus.png" Stretch="Uniform"/>
-                                </Image.OpacityMask>
-                            </Image>
-                            <TextBlock>My tooltip text</TextBlock>
-                        </StackPanel>
-                    </m:Pushpin.ToolTip>
+                   
                 </m:Pushpin>
             </ControlTemplate>
         </Grid.Resources>
@@ -39,7 +30,37 @@
             <m:MapItemsControl Name="mapList" ItemsSource="{Binding BakuBus.Buses}">
                 <m:MapItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <m:Pushpin Template="{StaticResource myPushpin}" Content="{Binding Attributes.DISPLAY_ROUTE_CODE}" Location="{Binding Attributes.LOCATION}" Visibility="{Binding Attributes.VISIBILITY}"/>
+                        <m:Pushpin Template="{StaticResource myPushpin}" Content="{Binding Attributes.DISPLAY_ROUTE_CODE}" Location="{Binding Attributes.LOCATION}" Visibility="{Binding Attributes.VISIBILITY}">
+                            <m:Pushpin.ToolTip>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="14" Text="{Binding Attributes.BUS_ID}"/>
+
+
+                                    <Image Grid.Row="1" Grid.ColumnSpan="2" Source="/Bus.png"></Image>
+
+                                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" Margin="0 0 3 0" FontSize="14" Text="Previous: "/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="3 0 0 0" FontSize="14" Text="{Binding Attributes.PREV_STOP}"/>
+                                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontSize="14" Text="Current: "/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" FontSize="14" Text="{Binding Attributes.CURRENT_STOP}"/>
+                                </Grid>
+                                
+                                    
+                                    
+                            </m:Pushpin.ToolTip>
+                        </m:Pushpin>
                     </DataTemplate>
                 </m:MapItemsControl.ItemTemplate>
             </m:MapItemsControl>

@@ -66,10 +66,8 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
 
-    public MainViewModel()
+    public MainViewModel(string key)
     {
-        var key = new ConfigurationBuilder().AddJsonFile("C:\\Users\\User\\source\\repos\\WPFBakuBus\\WPFBakuBus\\appsettings.json").Build()["mapKey"];
-
         MapKey = new ApplicationIdCredentialsProvider(key);
 
         comboBoxBuses = new();
@@ -88,20 +86,20 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void ExecuteBusSelectCommand(object? parametr)
     {
-        //if (parametr is MapItemsControl map)
-        //{
-        //    var busName = ComboBoxBuses[CurrentIndex];
+        if (parametr is MapItemsControl map)
+        {
+            var busName = ComboBoxBuses[CurrentIndex];
 
-        //    foreach (var bus in map.Items.OfType<Bus>())
-        //    {
+            foreach (var bus in map.Items.OfType<Bus>())
+            {
 
-        //        if (bus.Attributes.DISPLAY_ROUTE_CODE != busName)
-        //            bus.Attributes.VISIBILITY = Visibility.Collapsed;
-        //        else
-        //            bus.Attributes.VISIBILITY = Visibility.Visible;
-        //    }
+                if (bus.Attributes.DISPLAY_ROUTE_CODE != busName)
+                    bus.Attributes.VISIBILITY = Visibility.Collapsed;
+                else
+                    bus.Attributes.VISIBILITY = Visibility.Visible;
+            }
 
-        //}
+        }
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
