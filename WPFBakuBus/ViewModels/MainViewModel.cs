@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Windows.Input;
 using WPFBakuBus.Commands;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace WPFBakuBus.ViewModels;
 
@@ -20,18 +21,7 @@ public class MainViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     private void OnPropertyChanged(string prorertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prorertyName));
 
-    private List<string> comboBoxBuses;
-
-    public List<string> ComboBoxBuses
-    {
-        get { return comboBoxBuses; }
-        set
-        {
-            comboBoxBuses = value;
-            OnPropertyChanged(nameof(ComboBoxBuses));
-        }
-    }
-
+    public ObservableCollection<string> ComboBoxBuses { get; set; }
     public ICommand BusSelectCommand { get; set; }
 
     public int CurrentIndex { get; set; }
@@ -65,10 +55,12 @@ public class MainViewModel : INotifyPropertyChanged
     {
         MapKey = new ApplicationIdCredentialsProvider(key);
 
-        comboBoxBuses = new();
+        ComboBoxBuses = new();
         ComboBoxBuses.Add("View All");
 
+
         UpdateBakuBusStatus();
+
 
 
         DispatcherTimer timer = new();
